@@ -10,7 +10,7 @@ const server = http.createServer((req, res) =>{
     }).on('data', (chunk) => {
         body.push(chunk);
     }).on('end', () => {
-        body = Buffer.concat(body).toString();
+        body = Buffer.concat(body).toString('utf8');
         // BEGINNING OF NEW STUFF
 
         res.on('error', (err) => {
@@ -24,7 +24,7 @@ const server = http.createServer((req, res) =>{
 
         const responseBody = { headers, method, url, body };
 
-        res.write(JSON.stringify(responseBody.body+"\n"));
+        res.write(responseBody.body+"\n");
         res.write(responseBody.url);
         res.end();
         // Note: the 2 lines above could be replaced with this next one:
